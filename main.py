@@ -39,11 +39,11 @@ class ImagePrompt(BaseModel):
     prompt: str
 
 @app.get("/", response_class=HTMLResponse)
-async def get_form(request: Request):
+def get_form(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/process_image")
-async def process_image(imageLink: str = Form(...), prompt: str = Form(...), username: str = Form(...)):
+def process_image(imageLink: str = Form(...), prompt: str = Form(...), username: str = Form(...)):
     logger.info(f"Received form data - ImageLink: {imageLink}, Prompt: {prompt}, Username: {username}")
     try:
         logger.info(f"Received form data - ImageLink: {imageLink}, Prompt: {prompt}, Username: {username}")
