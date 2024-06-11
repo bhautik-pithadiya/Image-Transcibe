@@ -45,7 +45,7 @@
 
                 if (response.ok) {
                     const result = await response.json();
-                    document.getElementById('result').innerText = `Response: ${result.response}\nProcessing Time: ${result.processing_time} seconds`;
+                    document.getElementById('result').innerText = `Response: ${result.response}\nProcessing Time: ${result.processing_time} seconds\n Total Time Taken: ${result.Total_time_taken}`;
                 } else {
                     document.getElementById('result').innerText = `Error: ${response.statusText}`;
                 }
