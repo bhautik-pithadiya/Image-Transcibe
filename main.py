@@ -21,7 +21,7 @@ templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-double_quant_config = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_use_double_quant=True)    
+double_quant_config = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_use_double_quant=True,bnb_4bit_compute_dtype=torch.float16)    
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model_id = "llava-hf/llava-1.5-7b-hf"
@@ -39,12 +39,11 @@ class ImagePrompt(BaseModel):
     prompt: str
 
 @app.get("/", response_class=HTMLResponse)
-def get_form(request: Request):
+async def get_form(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/process_image")
-def process_image(imageLink: str = Form(...), prompt: str = Form(...), username: str = Form(...)):
-    logger.info(f"Received form data - ImageLink: {imageLink}, Prompt: {prompt}, Username: {username}")
+async def process_image(imageLink: str = Form(...), prompt: str = Form(...), username: str = Form(...)):
     try:
         logger.info(f"Received form data - ImageLink: {imageLink}, Prompt: {prompt}, Username: {username}")
         # Load the image
@@ -52,6 +51,7 @@ def process_image(imageLink: str = Form(...), prompt: str = Form(...), username:
         list_of_images = imageLink.split(' ')
         if len(list_of_images)>1:
             output = []
+            response_data = {}
             i=0
             for images in list_of_images:
                 raw_image = Image.open(requests.get(images, stream=True).raw)
@@ -70,18 +70,18 @@ def process_image(imageLink: str = Form(...), prompt: str = Form(...), username:
                 response = processor.decode(output[i][0][2:], skip_special_tokens=True)
                 i+=1
                 # Save the response to a JSON file
-                response_data = {
+                response_data.update({
                     "url": imageLink,
                     "prompt": prompt,
                     "response": response,
                     "username": username,
-                    "processing_time":processing_time
-                }
+                    "processing_time":str(processing_time)
+                })
                 with open("response.json", "a") as f:
                     json.dump(response_data, f)
                     f.write("\n")
 
-            return {"response": response}
+            return {"response": response_data['response'],"processing_time":processing_time}
         else:
             raw_image = Image.open(requests.get(imageLink, stream=True).raw)
 
@@ -95,7 +95,7 @@ def process_image(imageLink: str = Form(...), prompt: str = Form(...), username:
             end_time = datetime.now()
             processing_time = (end_time - start_time).total_seconds()
             # Decode the response
-            response = processor.decode(output[0][2:], skip_special_tokens=True)
+            response = processor.decode(output[0], skip_special_tokens=True)
 
             # Save the response to a JSON file
             response_data = {
