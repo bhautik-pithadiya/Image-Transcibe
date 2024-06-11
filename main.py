@@ -9,20 +9,25 @@ import torch
 from transformers import AutoProcessor, LlavaForConditionalGeneration
 from transformers import BitsAndBytesConfig
 import json
-import time
 from datetime import datetime
 import logging
 import asyncio
+import aiohttp
+from io import BytesIO
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 app = FastAPI()
+
 # Set up Jinja2 templates
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-
-double_quant_config = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_use_double_quant=True,bnb_4bit_compute_dtype=torch.float16)    
+double_quant_config = BitsAndBytesConfig(
+    load_in_4bit=True, 
+    bnb_4bit_use_double_quant=True, 
+    bnb_4bit_compute_dtype=torch.float16
+)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model_id = "llava-hf/llava-1.5-7b-hf"
@@ -33,15 +38,7 @@ model = LlavaForConditionalGeneration.from_pretrained(
     quantization_config=double_quant_config
 )
 processor = AutoProcessor.from_pretrained(model_id)
-logger.info(f"Model Loaded")
-
-class ImagePrompt(BaseModel):
-    url: str
-    prompt: str
-
-@app.get("/", response_class=HTMLResponse)
-async def get_form(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+logger.info("Model Loaded")
 
 def transform_list_of_dicts(data):
     transformed_dict = {}
@@ -53,37 +50,53 @@ def transform_list_of_dicts(data):
             transformed_dict[key].append(value)
     
     return transformed_dict
-        
-        
+
+class ImagePrompt(BaseModel):
+    url: str
+    prompt: str
+
+@app.get("/", response_class=HTMLResponse)
+async def get_form(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/process_image")
 async def process_image(imageLink: str = Form(...), prompt: str = Form(...), username: str = Form(...)):
     try:
-        start_time = datetime.now()
         logger.info(f"Received form data - ImageLink: {imageLink}, Prompt: {prompt}, Username: {username}")
-        # Load the image
-        # print(username,imageLink)
+
+        # Handle multiple image links
         list_of_images = imageLink.split(' ')
-        if len(list_of_images)>1:
+        if len(list_of_images) > 1:
             tasks = [process_single_image(image, prompt, username) for image in list_of_images]
+            start_time = datetime.now()
             results = await asyncio.gather(*tasks)
             response_data = transform_list_of_dicts(results)
-            
+            end_time = datetime.now()
+            total_processing_time = (end_time - start_time).total_seconds()
+            response_data["total_processing_time"] = str(total_processing_time)
         else:
+            start_time = datetime.now()
             response_data = await process_single_image(imageLink, prompt, username)
-        end_time = datetime.now()
-        total_time = (end_time - start_time).total_seconds()
-        response_data['Total_time_taken'] = total_time
+            end_time = datetime.now()
+            response_data["total_processing_time"] = str((end_time - start_time).total_seconds())
+
         return response_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+async def fetch_image(image_link: str):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(image_link) as response:
+            image_data = await response.read()
+            return Image.open(BytesIO(image_data))
+
 async def process_single_image(image_link: str, prompt: str, username: str):
-    raw_image = Image.open(requests.get(image_link, stream=True).raw)
+    raw_image = await fetch_image(image_link)
 
     # Prepare the inputs
     formatted_prompt = f"USER: <image>\n{prompt}\nASSISTANT:"
     inputs = processor(formatted_prompt, raw_image, return_tensors='pt').to(device)
+
     # Generate the output
     start_time = datetime.now()
     output = model.generate(**inputs, max_new_tokens=200, do_sample=False)
@@ -99,7 +112,7 @@ async def process_single_image(image_link: str, prompt: str, username: str):
         "prompt": prompt,
         "response": response,
         "username": username,
-        "processing_time": processing_time
+        "processing_time": str(processing_time)
     }
     with open("response.json", "a") as f:
         json.dump(response_data, f)
