@@ -1,0 +1,12 @@
+bitsandbytes
+fastapi
+uvicorn
+requests
+pillow
+accelerate
+transformers
+sentencepiece
+pydantic
+pandas
+streamlit
+auto_gptq
