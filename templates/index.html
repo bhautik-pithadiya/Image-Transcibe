@@ -4,55 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Link Prompt Form</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Image Translation</h1>
-        <form id="submissionForm" method="post" action="/process_image">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username">
+    <div class="main_container">
+        <div class="sidebar">
+            <h1>History</h1>
+            
+            <ul id="chat-list">
+                <!-- List of chat sessions will appear here -->
+            </ul>
+            <button id="new-chat" class="new-chat-button">New Chat</button>
+        </div>
+        <div class="form_data">
+            <!-- Form for Text Generation -->
+            <div id="chat-box" class="chat-box">
+                <!-- Chat messages will appear here -->
             </div>
-            <div class="form-group">
-                <label for="imageLink">Image Link</label>
-                <input type="text" id="imageLink" name="imageLink">
+            <div class="chatform">
+                <form id="submissionForm" method="post" action="/process_image">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="imageLink">Image Link</label>
+                        <input type="text" id="imageLink" name="imageLink">
+                    </div>
+                    <div class="form-group">
+                        <label for="prompt">Prompt</label>
+                        <textarea id="prompt" name="prompt" rows="4" cols="50" readonly>Describe the following</textarea>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+                <div class="result_container">
+                    <h1>Result</h1>
+                    <p id="result"></p>
+                </div>
+                <script src='/static/js/script.js'></script>
             </div>
-            <div class="form-group">
-                <label for="prompt">Prompt</label>
-                <textarea id="prompt" name="prompt" rows="4" cols="50" readonly>Describe the following</textarea>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-        <div id="result"></div>
+            
+            
+        </div>
     </div>
-    <script>
-        document.getElementById('submissionForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const form = event.target;
-            const formData = new FormData(form);
-            const formDataObject = Object.fromEntries(formData.entries());
-
-            try {
-                const response = await fetch(form.action, {
-                    
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams(formDataObject),
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    document.getElementById('result').innerText = `Response: ${result.response}\nProcessing Time: ${result.processing_time} seconds\n Total Time Taken: ${result.total_processing_time}`;
-                } else {
-                    document.getElementById('result').innerText = `Error: ${response.statusText}`;
-                }
-            } catch (error) {
-                document.getElementById('result').innerText = `Error: ${error.message}`;
-            }
-        });
-    </script>
+    
 </body>
 </html>

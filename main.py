@@ -94,7 +94,7 @@ async def process_single_image(image_link: str, prompt: str, username: str):
     raw_image = await fetch_image(image_link)
 
     # Prepare the inputs
-    formatted_prompt = f"USER: <image>\n{prompt}\nASSISTANT:"
+    formatted_prompt = f"<image>\n{prompt}\nASSISTANT:"
     inputs = processor(formatted_prompt, raw_image, return_tensors='pt').to(device)
 
     # Generate the output
@@ -117,7 +117,22 @@ async def process_single_image(image_link: str, prompt: str, username: str):
     with open("response.json", "a") as f:
         json.dump(response_data, f)
         f.write("\n")
+    try:
+        with open("chat_history.json", "r") as file:
+            try:
+                chat_history = json.load(file)
+            except json.JSONDecodeError:
+                chat_history = []
+    except FileNotFoundError:
+        chat_history = []
 
+    # Append the new chat to the chat history
+    chat_history.append(response_data)
+
+    # Save the updated chat history back to file or database
+    with open("chat_history.json", "w") as file:
+        json.dump(chat_history, file)
+        
     return response_data
 
 if __name__ == "__main__":
