@@ -13,6 +13,7 @@ from datetime import datetime
 import logging
 import asyncio
 import aiohttp
+import uuid
 from io import BytesIO
 
 logging.basicConfig(level=logging.INFO)
@@ -105,9 +106,10 @@ async def process_single_image(image_link: str, prompt: str, username: str):
 
     # Decode the response
     response = processor.decode(output[0], skip_special_tokens=True)
-
+    unique_id = str(uuid.uuid4())
     # Save the response to a JSON file
     response_data = {
+        "id" :str(unique_id),
         "url": image_link,
         "prompt": prompt,
         "response": response,
