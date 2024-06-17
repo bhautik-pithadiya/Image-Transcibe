@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Fetch JSON data
     try {
-        const response = await fetch('/chat_history.json');
+        const response = await fetch('static/chat_history.json');
         jsonData = await response.json();
 
         // Populate ID list
