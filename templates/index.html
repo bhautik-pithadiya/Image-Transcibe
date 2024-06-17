@@ -10,9 +10,8 @@
     <div class="main_container">
         <div class="sidebar">
             <h1>History</h1>
-            
-            <ul id="chat-list">
-                <!-- List of chat sessions will appear here -->
+            <ul id="id-list">
+                <!-- IDs will be populated here -->
             </ul>
             <button id="new-chat" class="new-chat-button">New Chat</button>
         </div>
@@ -21,7 +20,7 @@
             <div id="chat-box" class="chat-box">
                 <!-- Chat messages will appear here -->
             </div>
-            <div class="chatform">
+            <div id="chatform" class="chatform">
                 <form id="submissionForm" method="post" action="/process_image">
                     <div class="form-group">
                         <label for="username">Username</label>
@@ -41,12 +40,12 @@
                     <h1>Result</h1>
                     <p id="result"></p>
                 </div>
-                <script src='/static/js/script.js'></script>
             </div>
-            
-            
+            <div id="display-container" class="display-container" style="display: none;">
+                <!-- Image, prompt, and response will be displayed here -->
+            </div>
+            <script src='/static/js/script.js'></script>
         </div>
     </div>
-    
 </body>
 </html>
