@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const response = await fetch('static/chat_history.json');
         jsonData = await response.json();
 
-        // Populate ID list
+       
         jsonData.forEach(item => {
             const li = document.createElement('li');
             li.textContent = item.id;
@@ -24,13 +24,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error fetching JSON data:', error);
     }
 
-    // Function to display user data
+    // display user data
     function displayUserData(userItem) {
         chatBox.style.display = 'none';
         chatForm.style.display = 'none';
         displayContainer.style.display = 'block';
         displayContainer.innerHTML = `
-            <p><bold>Username:</bold> ${userItem.username}</p>
+            <p><strong>Username:</strong> <strong> ${userItem.username}</strong></p>
             <img src="${userItem.url}" alt="Image from ${userItem.username}">
             <p><strong>Prompt:</strong> ${userItem.prompt}</p>
             <p><strong>Response:</strong> ${userItem.response}</p>
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     document.getElementById('submissionForm').addEventListener('submit', handleSubmit);
 
-    // New chat button functionality
+    // chat button 
     document.getElementById('new-chat').addEventListener('click', function () {
         chatBox.style.display = '';
         chatForm.style.display = 'block';
