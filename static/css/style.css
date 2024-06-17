@@ -5,12 +5,10 @@ body {
     padding: 0;
 }
 
-
 .main_container {
     display: flex;
     margin: 0;
     border: 0;
-
 }
 
 .sidebar {
@@ -23,7 +21,7 @@ body {
     position: fixed;
 }
 
-.sidebar h2 {
+.sidebar h1 {
     margin: 0;
     margin-bottom: 20px;
 }
@@ -58,7 +56,7 @@ body {
 }
 
 .form_data {
-    width: 20%;
+    width: 30%;
     margin: auto;
     background-color: #fff;
     padding: 20px;
@@ -109,4 +107,31 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+#id-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+#id-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #444;
+    color: #fff;
+}
+
+#id-list li:hover {
+    background-color: #444;
+}
+
+.display-container {
+    margin-top: 20px;
+}
+
+.display-container img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 20px;
 }
