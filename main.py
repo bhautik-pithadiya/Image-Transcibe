@@ -114,13 +114,14 @@ async def process_single_image(image_link: str, prompt: str, username: str):
         "prompt": prompt,
         "response": response,
         "username": username,
-        "processing_time": str(processing_time)
+        "processing_time": str(processing_time),
+        "time": str(datetime.now())
     }
     with open("response.json", "a") as f:
         json.dump(response_data, f)
         f.write("\n")
     try:
-        with open("chat_history.json", "r") as file:
+        with open("static/chat_history.json", "r") as file:
             try:
                 chat_history = json.load(file)
             except json.JSONDecodeError:
@@ -132,7 +133,7 @@ async def process_single_image(image_link: str, prompt: str, username: str):
     chat_history.append(response_data)
 
     # Save the updated chat history back to file or database
-    with open("chat_history.json", "w") as file:
+    with open("static/chat_history.json", "w") as file:
         json.dump(chat_history, file)
         
     return response_data
