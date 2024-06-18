@@ -34,8 +34,7 @@
         "username": "Shubham",
         "processing_time": "6.410024",
         "time": "2024-06-18 05:44:23.422904"
-    },
-    {
+    },{
         "id": "0f2bd3ae-8da2-4fe0-88c1-9329af9ff1c7",
         "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbuOec1PA_nAULXrmdBqYSnBo3BJBdLjFkYA&s",
         "prompt": "Describe the following",
@@ -44,4 +43,5 @@
         "processing_time": "5.341328",
         "time": "2024-06-18 06:35:53.506671"
     }
+    
 ]

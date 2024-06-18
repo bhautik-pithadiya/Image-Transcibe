@@ -24,21 +24,20 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-double_quant_config = BitsAndBytesConfig(
-    load_in_4bit=True, 
-    bnb_4bit_use_double_quant=True, 
-    bnb_4bit_compute_dtype=torch.float16
-)
+model_path = 'model/config.json'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-model_id = "llava-hf/llava-1.5-7b-hf"
-
 # Load the model and processor
+with open(model_path,'r') as file:
+    config = json.load(file)
+
+print(config['_name_or_path'])
+
 model = LlavaForConditionalGeneration.from_pretrained(
-    model_id,
-    quantization_config=double_quant_config
+    pretrained_model_name_or_path=config["_name_or_path"],
+    config=config  
 )
-processor = AutoProcessor.from_pretrained(model_id)
+processor = AutoProcessor.from_pretrained(model_path)
 logger.info("Model Loaded")
 
 def transform_list_of_dicts(data):
@@ -114,13 +113,14 @@ async def process_single_image(image_link: str, prompt: str, username: str):
         "prompt": prompt,
         "response": response,
         "username": username,
-        "processing_time": str(processing_time)
+        "processing_time": str(processing_time),
+        "time": str(datetime.now())
     }
     with open("response.json", "a") as f:
         json.dump(response_data, f)
         f.write("\n")
     try:
-        with open("chat_history.json", "r") as file:
+        with open("static/chat_history.json", "r") as file:
             try:
                 chat_history = json.load(file)
             except json.JSONDecodeError:
@@ -129,10 +129,10 @@ async def process_single_image(image_link: str, prompt: str, username: str):
         chat_history = []
 
     # Append the new chat to the chat history
-    chat_history.append(response_data)
+    chat_history.insert(0,response_data)
 
     # Save the updated chat history back to file or database
-    with open("chat_history.json", "w") as file:
+    with open("static/chat_history.json", "w") as file:
         json.dump(chat_history, file)
         
     return response_data

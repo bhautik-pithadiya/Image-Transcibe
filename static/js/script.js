@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Fetch JSON data
     try {
-        const response = await fetch('/chat_history.json');
+        const response = await fetch('/static/chat_history.json');
         jsonData = await response.json();
 
         // Sort jsonData based on the time property in descending order
@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error fetching JSON data:', error);
     }
 
+    // Function to display user data
     // Function to display user data
     function displayUserData(userItem) {
         chatBox.style.display = 'none';
