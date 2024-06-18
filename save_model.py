@@ -22,7 +22,7 @@ quantized_model = torch.quantization.quantize_dynamic(
 )
 
 # Save the quantized model
-quantized_model.save_pretrained("model/")
+model.save_pretrained("model/")
 
 # Save the processor
 processor = AutoProcessor.from_pretrained(model_id)

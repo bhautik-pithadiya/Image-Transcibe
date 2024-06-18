@@ -24,19 +24,14 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-model_path = 'model/config.json'
+model_path = 'model/'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load the model and processor
-with open(model_path,'r') as file:
-    config = json.load(file)
-
-print(config['_name_or_path'])
-
 model = LlavaForConditionalGeneration.from_pretrained(
-    pretrained_model_name_or_path=config["_name_or_path"],
-    config=config  
+    model_path      
 )
+
 processor = AutoProcessor.from_pretrained(model_path)
 logger.info("Model Loaded")
 
@@ -139,4 +134,5 @@ async def process_single_image(image_link: str, prompt: str, username: str):
 
 if __name__ == "__main__":
     import uvicorn
+    
     uvicorn.run(app, host="0.0.0.0", port=8000)
