@@ -11,25 +11,29 @@
         <div class="sidebar">
             <h1>History</h1>
             <button id="new-chat" class="new-chat-button">New Chat</button>
-            <ul id="id-list">
-                
-            </ul>
-            
+            <ul id="id-list"></ul>
         </div>
         <div class="form_data">
-           
-            <div id="chat-box" class="chat-box">
-                
-            </div>
+            <div id="chat-box" class="chat-box"></div>
             <div id="chatform" class="chatform">
-                <form id="submissionForm" method="post" action="/process_image">
+                <form id="submissionForm" method="post" action="/process_image" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" id="username" name="username">
                     </div>
-                    <div class="form-group">
-                        <label for="imageLink">Image Link</label>
-                        <input type="text" id="imageLink" name="imageLink">
+                    <div class="form-group radio-buttons">
+                        <input type="radio" id="linkRadio" name="inputMethod" value="link" checked>
+                        <label for="linkRadio">Link</label>
+                        <input type="radio"  id="fileRadio" name="inputMethod" value="upload">
+                        <label for="fileRadio">File</label>
+                    </div>
+                    <div class="form-group" id="linkInputGroup">
+                        
+                        <input type="text"  placeholder="Paste your link here..." id="imageLink" name="imageLink">
+                    </div>
+                    <div class="form-group" id="fileInputGroup" style="display: none;">
+                        
+                        <input type="file" id="imageFile" name="imageFile">
                     </div>
                     <div class="form-group">
                         <label for="prompt">Prompt</label>
@@ -38,16 +42,13 @@
                     <button type="submit" class="btn-img">Submit</button>
                 </form>
                 <div class="result_container">
-                    
                     <p id="result"></p>
                 </div>
             </div>
             <div id="display-container" class="display-container" style="display: none;">
-                <!-- image, prompt, and response  -->
+                <!-- image, prompt, and response -->
             </div>
             <script src='/static/js/script.js'></script>
-            
-            
         </div>
     </div>
 </body>

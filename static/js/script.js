@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const chatBox = document.getElementById('chat-box');
     const chatForm = document.querySelector('.chatform');
     const displayContainer = document.querySelector('.display-container');
+    const linkRadio = document.getElementById('linkRadio');
+    const fileRadio = document.getElementById('fileRadio');
+    const linkInputGroup = document.getElementById('linkInputGroup');
+    const fileInputGroup = document.getElementById('fileInputGroup');
 
     let jsonData = [];
 
@@ -28,21 +32,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Function to display user data
-    // Function to display user data
     function displayUserData(userItem) {
         chatBox.style.display = 'none';
         chatForm.style.display = 'none';
         displayContainer.style.display = 'block';
         displayContainer.innerHTML = `
-            
-            <img src="${userItem.url}" alt="Image from ${userItem.username}" class="display-image">
+            <img src="${userItem.url}" alt="Image from ${userItem.username}" class="display-image" width="456" height="456">
             <p><strong>Prompt:</strong> ${userItem.prompt}</p>
             <p><strong>Response:</strong> ${userItem.response}</p>
             <div id="more-content" style="display: none;">
-
-               
                 <p><strong>Username:</strong> ${userItem.username}</p>
-                <p><strong>Processing_time:</strong> ${userItem.processing_time}</p>
+                <p><strong>Processing Time:</strong> ${userItem.processing_time}</p>
                 <p><strong>Date & Time:</strong> ${userItem.time}</p>
                 <p><strong>URL:</strong> ${userItem.url}</p>
             </div>
@@ -69,21 +69,31 @@ document.addEventListener('DOMContentLoaded', async () => {
         displayContainer.style.display = 'none';
         document.getElementById('submissionForm').reset();
     });
+
+    // Handle input method change
+    linkRadio.addEventListener('change', toggleInputMethod);
+    fileRadio.addEventListener('change', toggleInputMethod);
+
+    function toggleInputMethod() {
+        if (linkRadio.checked) {
+            linkInputGroup.style.display = 'block';
+            fileInputGroup.style.display = 'none';
+        } else if (fileRadio.checked) {
+            linkInputGroup.style.display = 'none';
+            fileInputGroup.style.display = 'block';
+        }
+    }
 });
 
 async function handleSubmit(event) {
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
-    const formDataObject = Object.fromEntries(formData.entries());
 
     try {
         const response = await fetch(form.action, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams(formDataObject),
+            body: formData,
         });
 
         if (response.ok) {
@@ -100,13 +110,11 @@ async function handleSubmit(event) {
     }
 }
 
-
 // Function to add chat messages to chat history
 function addToChatHistory(prompt, response) {
     const chatHistory = document.getElementById("result");
     const chatMessage = document.createElement("div");
     chatMessage.innerHTML = `<p><strong>Prompt:</strong> ${prompt}</p><p><strong>Response:</strong> ${response}</p>`;
-    //chatHistory.appendChild(chatMessage);
     chatHistory.insertBefore(chatMessage, chatHistory.firstChild);
 }
 
@@ -117,35 +125,3 @@ document.getElementById('new-chat').addEventListener('click', function() {
     document.getElementById('chat-box').innerHTML = '';
     document.getElementById('submissionForm').reset();
 });
-
-// // Attach form submission handler
-// document.getElementById('submissionForm').addEventListener('submit', handleSubmit);
-
-
-// document.getElementById('submissionForm').addEventListener('submit', async function(event) {
-//     event.preventDefault();
-//     const form = event.target;
-//     const formData = new FormData(form);
-//     const formDataObject = Object.fromEntries(formData.entries());
-
-//     try {
-//         const response = await fetch(form.action, {
-            
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/x-www-form-urlencoded',
-//             },
-//             body: new URLSearchParams(formDataObject),
-//         });
-
-//         if (response.ok) {
-//             const result = await response.json();
-//             document.getElementById('result').innerText = `Response: ${result.response}\nProcessing Time: ${result.processing_time} seconds\n Total Time Taken: ${result.total_processing_time}`;
-//         } else {
-//             document.getElementById('result').innerText = `Error: ${response.statusText}`;
-//         }
-//     } 
-//     catch (error) {
-//         document.getElementById('result').innerText = `Error: ${error.message}`;
-//     }
-// });
