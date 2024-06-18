@@ -1,0 +1,47 @@
+[
+    {
+        "id": "a9e80227-728e-4f12-97c8-c63c87f386ba",
+        "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYclNpWNOM3ue7YdttCawvhDp6JfBZoPWBaw&s",
+        "prompt": "Describe the following",
+        "response": "\nDescribe the following\nASSISTANT: The image features a man dressed in a space suit, riding a white horse. The man appears to be a space traveler, and he is wearing a helmet for safety. The horse is positioned in the middle of the scene, with the man sitting on its back. The background features a beautiful night sky, adding to the overall atmosphere of the image.",
+        "username": "karan",
+        "processing_time": "6.851515",
+        "time": "2024-06-18 05:40:48.656268"
+    },
+    {
+        "id": "353893a2-78b7-4063-b2c0-0ca3fc197aeb",
+        "url": "https://deepai.org/static/images/cyberpunkdolphin.png",
+        "prompt": "Describe the following",
+        "response": "\nDescribe the following\nASSISTANT: The image features a robotic dolphin sitting at a green dining table, surrounded by a forest. The dolphin appears to be playing a game of cards, with several cards scattered around the table. The scene is quite unique and captivating, as it combines the elements of a dolphin and a robotic creation, along with the natural setting of the forest.",
+        "username": "bhavesh",
+        "processing_time": "6.927795",
+        "time": "2024-06-18 05:42:09.901102"
+    },
+    {
+        "id": "b795aeb1-c75d-4c98-898e-898f4e4603c1",
+        "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj6yD_sVhrnxluoya9OVTYVoULB3MLDiIVSw&s",
+        "prompt": "Describe the following",
+        "response": "\nDescribe the following\nASSISTANT: The image features a large group of white birds, likely seagulls, gathered together in a body of water. They are spread out across the scene, with some birds closer to the foreground and others further back. The birds are standing on the water, possibly enjoying the refreshing environment or searching for food. The scene captures the beauty and harmony of nature, as these birds come together in their natural habitat.",
+        "username": "harsh",
+        "processing_time": "7.000373",
+        "time": "2024-06-18 05:42:55.894001"
+    },
+    {
+        "id": "99a5b2b1-08ff-4ab2-a50b-5a9360f97b20",
+        "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBoT8aT2n5ep_sg3C05vQxAg7Qy_XruE03NA&s",
+        "prompt": "Describe the following",
+        "response": "\nDescribe the following\nASSISTANT: The image features a zebra standing next to an elephant in a field. The zebra is positioned on the left side of the elephant, creating a striking contrast between the two animals. The scene appears to be set in a sunny environment, with the sunlight illuminating the animals. The zebra and the elephant seem to be enjoying their time together in the open field.",
+        "username": "Shubham",
+        "processing_time": "6.410024",
+        "time": "2024-06-18 05:44:23.422904"
+    },{
+        "id": "0f2bd3ae-8da2-4fe0-88c1-9329af9ff1c7",
+        "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbuOec1PA_nAULXrmdBqYSnBo3BJBdLjFkYA&s",
+        "prompt": "Describe the following",
+        "response": "\nDescribe the following\nASSISTANT: The image features a pair of wedding rings hanging from a metal structure, possibly a tree or a pole. The rings are positioned close to each other, creating an interesting visual effect. The scene appears to be set in a forest or a park, with the rings seemingly floating in the air. The overall atmosphere of the image is serene and captivating.",
+        "username": "Mayur",
+        "processing_time": "5.341328",
+        "time": "2024-06-18 06:35:53.506671"
+    }
+    
+]
