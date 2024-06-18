@@ -1,6 +1,6 @@
 import requests
 from PIL import Image
-from fastapi import FastAPI, HTTPException, Request, Form
+from fastapi import FastAPI, HTTPException, Request, Form,UploadFile, File
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -55,26 +55,34 @@ async def get_form(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/process_image")
-async def process_image(imageLink: str = Form(...), prompt: str = Form(...), username: str = Form(...)):
+async def process_image(imageSource: str = Form(...), imageLink: str = Form(None), imageUpload: UploadFile = File(None), prompt: str = Form(...), username: str = Form(...)):
     try:
-        logger.info(f"Received form data - ImageLink: {imageLink}, Prompt: {prompt}, Username: {username}")
+        if imageSource == 'link' and imageLink is not None:
+            logger.info(f"Received form data - ImageLink: {imageLink}, Prompt: {prompt}, Username: {username}")
 
-        # Handle multiple image links
-        list_of_images = imageLink.split(' ')
-        if len(list_of_images) > 1:
-            tasks = [process_single_image(image, prompt, username) for image in list_of_images]
-            start_time = datetime.now()
-            results = await asyncio.gather(*tasks)
-            response_data = transform_list_of_dicts(results)
-            end_time = datetime.now()
-            total_processing_time = (end_time - start_time).total_seconds()
-            response_data["total_processing_time"] = str(total_processing_time)
-        else:
-            start_time = datetime.now()
-            response_data = await process_single_image(imageLink, prompt, username)
-            end_time = datetime.now()
-            response_data["total_processing_time"] = str((end_time - start_time).total_seconds())
-
+            # Handle multiple image links
+            list_of_images = imageLink.split(' ')
+            if len(list_of_images) > 1:
+                tasks = [process_single_image(image, prompt, username) for image in list_of_images]
+                start_time = datetime.now()
+                results = await asyncio.gather(*tasks)
+                response_data = transform_list_of_dicts(results)
+                end_time = datetime.now()
+                total_processing_time = (end_time - start_time).total_seconds()
+                response_data["total_processing_time"] = str(total_processing_time)
+            else:
+                start_time = datetime.now()
+                response_data = await process_single_image(imageLink, prompt, username)
+                end_time = datetime.now()
+                response_data["total_processing_time"] = str((end_time - start_time).total_seconds())
+                
+        elif imageSource == "upload" and imageUpload is not None:
+            
+            logger.info(f"Received form data - ImageUpload: {imageUpload.filename}, Prompt: {prompt}, Username: {username}")
+            raw_image = Image.open(imageUpload.file)
+            response_data = await process_uploaded_image(raw_image, prompt, username)
+            
+            
         return response_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -84,6 +92,32 @@ async def fetch_image(image_link: str):
         async with session.get(image_link) as response:
             image_data = await response.read()
             return Image.open(BytesIO(image_data))
+        
+async def process_uploaded_image(raw_image: Image, prompt: str, username: str):
+    formatted_prompt = f"<image>\n{prompt}\nASSISTANT:"
+    inputs = processor(formatted_prompt, raw_image, return_tensors='pt').to(device)
+
+    start_time = datetime.now()
+    output = model.generate(**inputs, max_new_tokens=200, do_sample=False)
+    end_time = datetime.now()
+    processing_time = (end_time - start_time).total_seconds()
+
+    response = processor.decode(output[0], skip_special_tokens=True)
+    unique_id = str(uuid.uuid4())
+    
+    response_data = {
+        "id": unique_id,
+        "prompt": prompt,
+        "response": response,
+        "username": username,
+        "processing_time": str(processing_time),
+        "time": str(datetime.now())
+    }
+    
+    save_data(response_data)
+    
+    return response_data
+
 
 async def process_single_image(image_link: str, prompt: str, username: str):
     raw_image = await fetch_image(image_link)
@@ -111,9 +145,11 @@ async def process_single_image(image_link: str, prompt: str, username: str):
         "processing_time": str(processing_time),
         "time": str(datetime.now())
     }
-    with open("response.json", "a") as f:
-        json.dump(response_data, f)
-        f.write("\n")
+    
+    save_data(response_data)
+    return response_data
+
+async def save_data(response_data):
     try:
         with open("static/chat_history.json", "r") as file:
             try:
@@ -129,8 +165,7 @@ async def process_single_image(image_link: str, prompt: str, username: str):
     # Save the updated chat history back to file or database
     with open("static/chat_history.json", "w") as file:
         json.dump(chat_history, file)
-        
-    return response_data
+
 
 if __name__ == "__main__":
     import uvicorn
