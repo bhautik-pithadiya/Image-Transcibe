@@ -64,7 +64,6 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     margin-top: 50px;
-    
 }
 
 h1 {
@@ -83,7 +82,7 @@ label {
     text-align: center;
 }
 
-textarea, input[type="text"] {
+textarea, input[type="text"], input[type="file"] {
     width: 95%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -96,7 +95,6 @@ textarea:read-only {
 }
 
 button {
-    
     width: 30%;
     padding: 10px;
     background-color: #007bff;
@@ -147,15 +145,30 @@ button:hover {
     margin-left: 173px;
 }
 
-
-.form-header{
+.form-header {
     text-align: center;
 }
 
-#audioUploadForm{
+#audioUploadForm {
     text-align: center;
 }
 
-.btn-img{
+.btn-img {
     margin-left: 171px;
+}
+
+.radio-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+.radio-buttons input[type="radio"] {
+    margin-right: 5px;
+    
+    
+    margin-bottom: 6px;
+    height: 18px;
+    width: 21px;
 }
