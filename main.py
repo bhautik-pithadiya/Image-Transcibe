@@ -152,7 +152,7 @@ async def process_single_image(image_link: str, prompt: str, username: str):
     save_data(response_data)
     return response_data
 
-async def save_data(response_data):
+def save_data(response_data):
     try:
         with open("static/chat_history.json", "r") as file:
             try:
