@@ -1,1 +1,47 @@
-[{"id": "b00ce88d-089c-4c2f-a65b-813156835a37", "url": "https://imgs.search.brave.com/7S0uXqeyoNg8enwoSaZK5rPTrXoV-L55tOZ0-e91FWA/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/aXN0b2NrcGhvdG8u/Y29tL3Jlc291cmNl/cy9pbWFnZXMvUGhv/dG9GVExQL0hlYWx0/aGNhcmVNZWRpY2lu/ZS05NDQ4ODU0NjIu/anBn", "prompt": "Describe the following", "response": "\nDescribe the following\nASSISTANT: The image features two women, one of whom is a nurse, standing close to each other. The nurse is attentively looking at the other woman's hand, possibly examining or treating it. The other woman appears to be in distress, possibly due to an injury or illness.\n\nThere are two handbags in the scene, one located near the left side of the image and the other closer to the right side. The nurse is wearing a tie, which is visible in the scene. The overall atmosphere suggests a medical or healthcare setting.", "username": "lalitr", "processing_time": "8.232289"}, {"id": "3a1ad753-5f00-4dca-8f69-4c73bd497c62", "url": "https://cdn.vox-cdn.com/thumbor/UixJG8lZQVN9qI6pBcxprYOsWeA=/0x0:1920x1080/1200x800/filters:focal(807x387:1113x693)/cdn.vox-cdn.com/uploads/chorus_image/image/68876614/26355890.6.jpeg", "prompt": "Describe the following", "response": "\nDescribe the following\nASSISTANT: The image features a man with a distinctive hairstyle, possibly a mohawk, and a scar on his face. He is wearing a red scarf and appears to be in a dramatic pose. The man is the main focus of the scene, and his facial expression and posture convey a sense of intensity. The image is in black and white, which adds to the dramatic atmosphere.", "username": "bhautik", "processing_time": "5.91705"}, {"id": "9b309494-02be-4893-8b0e-ab72cde3ade1", "url": "https://imgs.search.brave.com/6ZsbL-k0IhelQ6otrxaGEiiuBT0f-ibhCMbd-kuFnFs/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9tZWRpdW0tc2hv/dC13b21hbi1yZWxh/eGluZy1ob21lXzIz/LTIxNTA2MDM0NTku/anBnP3NpemU9NjI2/JmV4dD1qcGc", "prompt": "Describe the following", "response": "\nDescribe the following\nASSISTANT: The image features a woman wearing a white shirt, standing in a room and holding a cup. She appears to be in the process of pouring a beverage, possibly coffee, into the cup. The room has a cozy atmosphere, with a potted plant placed nearby and a vase on a surface. There is also a chair in the room, possibly for seating or additional decoration.", "username": "lalitr", "processing_time": "5.85487"}, {"id": "41d05a62-1c45-4531-bc85-44fb0c099cb1", "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiqRj1HFlXqWojbz41qfmR9B-fhdBVDbizpA&s", "prompt": "Describe the following", "response": "\nDescribe the following\nASSISTANT: The image features a young boy sitting on a blue and white couch, using a laptop. The laptop is placed on his lap, and he appears to be focused on the screen. The boy is wearing a blue shirt, and the scene is set in a cozy environment.", "username": "bhautik", "processing_time": "4.25285"}]
+[
+    {
+        "id": "a9e80227-728e-4f12-97c8-c63c87f386ba",
+        "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYclNpWNOM3ue7YdttCawvhDp6JfBZoPWBaw&s",
+        "prompt": "Describe the following",
+        "response": "\nDescribe the following\nASSISTANT: The image features a man dressed in a space suit, riding a white horse. The man appears to be a space traveler, and he is wearing a helmet for safety. The horse is positioned in the middle of the scene, with the man sitting on its back. The background features a beautiful night sky, adding to the overall atmosphere of the image.",
+        "username": "karan",
+        "processing_time": "6.851515",
+        "time": "2024-06-18 05:40:48.656268"
+    },
+    {
+        "id": "353893a2-78b7-4063-b2c0-0ca3fc197aeb",
+        "url": "https://deepai.org/static/images/cyberpunkdolphin.png",
+        "prompt": "Describe the following",
+        "response": "\nDescribe the following\nASSISTANT: The image features a robotic dolphin sitting at a green dining table, surrounded by a forest. The dolphin appears to be playing a game of cards, with several cards scattered around the table. The scene is quite unique and captivating, as it combines the elements of a dolphin and a robotic creation, along with the natural setting of the forest.",
+        "username": "bhavesh",
+        "processing_time": "6.927795",
+        "time": "2024-06-18 05:42:09.901102"
+    },
+    {
+        "id": "b795aeb1-c75d-4c98-898e-898f4e4603c1",
+        "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj6yD_sVhrnxluoya9OVTYVoULB3MLDiIVSw&s",
+        "prompt": "Describe the following",
+        "response": "\nDescribe the following\nASSISTANT: The image features a large group of white birds, likely seagulls, gathered together in a body of water. They are spread out across the scene, with some birds closer to the foreground and others further back. The birds are standing on the water, possibly enjoying the refreshing environment or searching for food. The scene captures the beauty and harmony of nature, as these birds come together in their natural habitat.",
+        "username": "harsh",
+        "processing_time": "7.000373",
+        "time": "2024-06-18 05:42:55.894001"
+    },
+    {
+        "id": "99a5b2b1-08ff-4ab2-a50b-5a9360f97b20",
+        "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBoT8aT2n5ep_sg3C05vQxAg7Qy_XruE03NA&s",
+        "prompt": "Describe the following",
+        "response": "\nDescribe the following\nASSISTANT: The image features a zebra standing next to an elephant in a field. The zebra is positioned on the left side of the elephant, creating a striking contrast between the two animals. The scene appears to be set in a sunny environment, with the sunlight illuminating the animals. The zebra and the elephant seem to be enjoying their time together in the open field.",
+        "username": "Shubham",
+        "processing_time": "6.410024",
+        "time": "2024-06-18 05:44:23.422904"
+    },
+    {
+        "id": "0f2bd3ae-8da2-4fe0-88c1-9329af9ff1c7",
+        "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbuOec1PA_nAULXrmdBqYSnBo3BJBdLjFkYA&s",
+        "prompt": "Describe the following",
+        "response": "\nDescribe the following\nASSISTANT: The image features a pair of wedding rings hanging from a metal structure, possibly a tree or a pole. The rings are positioned close to each other, creating an interesting visual effect. The scene appears to be set in a forest or a park, with the rings seemingly floating in the air. The overall atmosphere of the image is serene and captivating.",
+        "username": "Mayur",
+        "processing_time": "5.341328",
+        "time": "2024-06-18 06:35:53.506671"
+    }
+]

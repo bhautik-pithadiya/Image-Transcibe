@@ -19,6 +19,7 @@ body {
     height: 100%;
     box-sizing: border-box;
     position: fixed;
+    overflow: scroll;
 }
 
 .sidebar h1 {
@@ -63,6 +64,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     margin-top: 50px;
+    
 }
 
 h1 {
@@ -78,6 +80,7 @@ label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    text-align: center;
 }
 
 textarea, input[type="text"] {
@@ -93,8 +96,8 @@ textarea:read-only {
 }
 
 button {
-    display: block;
-    width: 100%;
+    
+    width: 30%;
     padding: 10px;
     background-color: #007bff;
     color: #fff;
@@ -134,4 +137,25 @@ button:hover {
     max-width: 100%;
     display: block;
     margin: 0 auto 20px;
+}
+
+#more-button {
+    background-color: #4cae4c;
+    width: 92px;
+    display: flex;
+    justify-content: center;
+    margin-left: 173px;
+}
+
+
+.form-header{
+    text-align: center;
+}
+
+#audioUploadForm{
+    text-align: center;
+}
+
+.btn-img{
+    margin-left: 171px;
 }
