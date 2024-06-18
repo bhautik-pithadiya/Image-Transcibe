@@ -56,8 +56,9 @@ async def get_form(request: Request):
 
 @app.post("/process_image")
 async def process_image(imageSource: str = Form(...), imageLink: str = Form(None), imageUpload: UploadFile = File(None), prompt: str = Form(...), username: str = Form(...)):
+
     try:
-        if imageSource == 'link' and imageLink is not None:
+        if imageSource == 'link' and imageLink:
             logger.info(f"Received form data - ImageLink: {imageLink}, Prompt: {prompt}, Username: {username}")
 
             # Handle multiple image links
@@ -76,13 +77,15 @@ async def process_image(imageSource: str = Form(...), imageLink: str = Form(None
                 end_time = datetime.now()
                 response_data["total_processing_time"] = str((end_time - start_time).total_seconds())
                 
-        elif imageSource == "upload" and imageUpload is not None:
-            
+        elif imageSource == "upload" and imageUpload:
+            response_data = {}  
             logger.info(f"Received form data - ImageUpload: {imageUpload.filename}, Prompt: {prompt}, Username: {username}")
             raw_image = Image.open(imageUpload.file)
             response_data = await process_uploaded_image(raw_image, prompt, username)
             
-            
+        else:
+            raise HTTPException(status_code=400, detail="Invalid image source or missing data.")
+        
         return response_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
