@@ -8,12 +8,15 @@
 </head>
 <body>
     <div class="main_container">
-        <div class="sidebar">
+        <div>
+        <div class="sidebar" id="sidebar">
             <h1>History</h1>
             <button id="new-chat" class="new-chat-button">New Chat</button>
             <ul id="id-list"></ul>
-        </div>
+        </div></div>
+        <div class="toggle-button" id="toggle-button">☰</div>
         <div class="form_data">
+            
             <div id="chat-box" class="chat-box"></div>
             <div id="chatform" class="chatform">
                 <form id="submissionForm" method="post" action="/process_image" enctype="multipart/form-data">
@@ -39,7 +42,8 @@
                         <label for="prompt">Prompt</label>
                         <textarea id="prompt" name="prompt" rows="4" cols="50" readonly>Describe the following</textarea>
                     </div>
-                    <button type="submit" class="btn-img">Submit</button>
+                    <div class="itt-btn">
+                    <button type="submit" class="btn-img">Submit</button></div>
                 </form>
                 <div class="result_container">
                     <p id="result"></p>
