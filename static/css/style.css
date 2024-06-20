@@ -11,7 +11,7 @@ body {
     border: 0;
 }
 
-.sidebar {
+/* .sidebar {
     width: 250px;
     background-color: #333;
     color: #fff;
@@ -20,6 +20,7 @@ body {
     box-sizing: border-box;
     position: fixed;
     overflow: scroll;
+    
 }
 
 .sidebar h1 {
@@ -50,10 +51,102 @@ body {
     border: none;
     color: #fff;
     cursor: pointer;
+    
 }
 
 .new-chat-button:hover {
     background-color: #4cae4c;
+}
+
+#id-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+#id-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #444;
+    color: #fff;
+}
+
+#id-list li:hover {
+    background-color: #444;
+} */
+/* Existing CSS for sidebar */
+
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    height: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    overflow: scroll;
+    transition: transform 0.3s ease; /* Smooth transition */
+    transform: translateX(0); /* Default position */
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%); /* Hide sidebar */
+}
+
+.sidebar h1 {
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #444;
+}
+
+.sidebar ul li:hover {
+    background-color: #444;
+}
+
+#id-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+#id-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #444;
+    color: #fff;
+}
+
+#id-list li:hover {
+    background-color: #444;
+}
+
+/* Styles for the toggle button */
+.toggle-button {
+    font-size: 30px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: transparent;
+    color: #4cae4c;
+    position: fixed;
+    top: 6px;
+    left: 1px;
+    z-index: 1000;
+}
+
+.new-chat-button{
+    width: 91%;
+
 }
 
 .form_data {
@@ -97,7 +190,7 @@ textarea:read-only {
 button {
     width: 30%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #4cae4c;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -107,25 +200,10 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #4cae4c;
 }
 
-#id-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 20px 0;
-}
 
-#id-list li {
-    padding: 10px;
-    cursor: pointer;
-    border-bottom: 1px solid #444;
-    color: #fff;
-}
-
-#id-list li:hover {
-    background-color: #444;
-}
 
 .display-container {
     margin-top: 20px;
@@ -142,7 +220,12 @@ button:hover {
     width: 92px;
     display: flex;
     justify-content: center;
-    margin-left: 232px;
+    
+}
+.itt-more-btn{
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 
 .form-header {
@@ -153,9 +236,7 @@ button:hover {
     text-align: center;
 }
 
-.btn-img {
-    margin-left: 171px;
-}
+
 
 .radio-buttons {
     display: flex;
@@ -171,4 +252,8 @@ button:hover {
     margin-bottom: 6px;
     height: 18px;
     width: 21px;
+}
+
+.itt-btn{
+    text-align: center;
 }

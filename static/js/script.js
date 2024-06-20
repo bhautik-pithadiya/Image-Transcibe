@@ -1,3 +1,8 @@
+document.getElementById('toggle-button').addEventListener('click', function() {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('hidden');
+});
+
 document.addEventListener('DOMContentLoaded', async () => {
     const idList = document.getElementById('id-list');
     const chatBox = document.getElementById('chat-box');
@@ -10,26 +15,37 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let jsonData = [];
 
-    // Fetch JSON data
-    try {
-        const response = await fetch('/static/chat_history.json');
-        jsonData = await response.json();
+    // Function to fetch JSON data
+    async function fetchData() {
+        try {
+            const response = await fetch('/static/chat_history.json');
+            jsonData = await response.json();
 
-        // Sort jsonData based on the time property in descending order
-        jsonData.sort((a, b) => new Date(b.time) - new Date(a.time));
+            // Sort jsonData based on the time property in descending order
+            jsonData.sort((a, b) => new Date(b.time) - new Date(a.time));
 
-        // Populate ID list
-        jsonData.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = item.id;
-            li.addEventListener('click', () => {
-                displayUserData(item);
+            // Clear existing ID list
+            idList.innerHTML = '';
+
+            // Populate ID list
+            jsonData.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item.id;
+                li.addEventListener('click', () => {
+                    displayUserData(item);
+                });
+                idList.appendChild(li);
             });
-            idList.appendChild(li);
-        });
-    } catch (error) {
-        console.error('Error fetching JSON data:', error);
+        } catch (error) {
+            console.error('Error fetching JSON data:', error);
+        }
     }
+
+    // Initial fetch of JSON data
+    await fetchData();
+
+    // Refresh JSON data every 5 seconds
+    setInterval(fetchData, 5000);
 
     // Function to display user data
     function displayUserData(userItem) {
@@ -44,9 +60,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <p><strong>Username:</strong> ${userItem.username}</p>
                 <p><strong>Processing Time:</strong> ${userItem.processing_time}</p>
                 <p><strong>Date & Time:</strong> ${userItem.time}</p>
-                <p><strong>URL:</strong> ${userItem.url}</p>
+                <p style="overflow-y:hidden;"><strong>URL:</strong> ${userItem.url}</p>
             </div>
-            <button id="more-button">More</button>
+            <div class="itt-more-btn"><button id="more-button">More</button></div>
         `;
 
         const moreButton = document.getElementById('more-button');
